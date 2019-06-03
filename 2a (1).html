@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM Vertiefung</title>
+    <style>
+        table, td {
+          border: 1px solid black;
+        }
+        </style>
+</head>
+
+<body>
+    <form id="form1">
+        <fieldset id="content">
+            <legend>Kühlschrankinhalt</legend>
+
+            <label><input type="radio" name="zutat" value="Butter">Butter</label>
+            <label><input type="radio" name="zutat" value="Käse">Käse</label>
+            <label><input type="radio" name="zutat" value="Schinken">Schinken</label>
+            <label><input type="radio" name="zutat" value="Salat">Salat</label>
+            <label><input type="radio" name="zutat" value="Milch">Milch</label>
+            <label><input type="radio" name="zutat" value="Joghurt">Joghurt</label>
+            <label><input type="radio" name="zutat" value="Saft">Saft</label>
+        </fieldset>
+        <button type="button" id="leer">leere Kühlschrank</button>
+        <br>
+        <label><input type="text" id="userInput" value="";></label>
+        <label><input type="button" id="add" value="Hinzufügen"></label>
+
+    
+    </form>
+    <script >
+        // 0
+document.getElementById('leer').addEventListener("click",function(){
+        var x = document.getElementsByName('zutat');
+        for(i=0; i < x.length; i++)
+        {
+            if((x)[i].checked==true)
+            {
+                alert(x[i].value)
+                x[i].remove();
+            }
+        }
+});
+// 0.0
+document.getElementById('add').addEventListener("click", function(){
+    var fieldset = document.getElementById("content");
+    var radio = document.createElement('INPUT');
+    var eingabe = document.getElementById("userInput").value;
+    radio.setAttribute("type", "radio");
+    radio.setAttribute("name", "zutat");
+    radio.setAttribute("value", eingabe);
+    var label1 = document.createElement("label");
+    var txtNode = document.createTextNode(eingabe);
+    label1.appendChild(txtNode);
+    fieldset.appendChild(radio);
+    fieldset.appendChild(label1);        
+});
+// 1
+var formular = document.createElement("FORM");
+formular.setAttribute("id", "formular");
+document.body.appendChild(formular);
+
+var labelNummer = document.createElement("label");
+var textLabel = document.createTextNode("Seitenlaenge/Radius");
+labelNummer.appendChild(textLabel);
+formular.appendChild(labelNummer);
+
+var NummerInput = document.createElement("input");
+NummerInput.setAttribute("type", "number");
+NummerInput.setAttribute("id", "NummerInput");
+formular.appendChild(NummerInput);
+
+var dropDown = document.createElement("select");
+dropDown.setAttribute("id", "dropDown");
+formular.appendChild(dropDown);
+
+var dropDownOption1 = document.createElement("option");
+dropDownOption1.setAttribute("value", "kugel");
+var dropDownOption1Txt = document.createTextNode("Kugel");
+
+var dropDownOption2 = document.createElement("option");
+dropDownOption2.setAttribute("value", "würfel");
+var dropDownOption2Txt = document.createTextNode("Würfel");
+
+var dropDownOption3 = document.createElement("option");
+dropDownOption3.setAttribute("value", "tetraeder");
+var dropDownOption3Txt = document.createTextNode("Tetraeder");
+
+dropDownOption1.appendChild(dropDownOption1Txt);
+dropDown.appendChild(dropDownOption1);
+formular.appendChild(dropDown);
+
+dropDownOption2.appendChild(dropDownOption2Txt);
+dropDown.appendChild(dropDownOption2);
+formular.appendChild(dropDown);
+
+dropDownOption3.appendChild(dropDownOption3Txt);
+dropDown.appendChild(dropDownOption3);
+formular.appendChild(dropDown);
+
+var CalculateButton = document.createElement("input");
+CalculateButton.setAttribute("type", "button");
+CalculateButton.setAttribute("id", "CalculateButton");
+CalculateButton.setAttribute("value", "Volumen brechnen");
+formular.appendChild(CalculateButton);
+
+CalculateButton.addEventListener("click",function(){
+    var volumen;
+    var choosen=dropDown.options[dropDown.selectedIndex].value;            
+    if(choosen=="würfel")
+    {
+        volumen=Math.pow(NummerInput.value,3);
+        alert(volumen);
+    }
+    else if(choosen=="kugel")
+    {
+        volumen=4/3*Math.PI*Math.pow(NummerInput.value,3);
+        alert(volumen);
+    }
+    else
+    {
+        volumen=Math.pow(NummerInput.value,3)/12*Math.sqrt(2);
+        alert(volumen);
+    }
+      
+});
+// 2 
+var tabelle = document.createElement("table");
+tabelle.setAttribute("id", "table");
+formular.appendChild(tabelle);
+
+// 1. Zeile 
+var tabelleRow1 = document.createElement("tr");
+tabelleRow1.setAttribute("id", "row1");
+tabelle.appendChild(tabelleRow1);
+
+
+
+var tabelleRow2 = document.createElement("tr");
+tabelleRow2.setAttribute("id", "row2");
+tabelle.appendChild(tabelleRow2);
+// 1. Zeile ; 1: Feld 
+var tabelleZelle1_1 = document.createElement("td");
+var tabelleZelleTxt1_1 = document.createTextNode("Figur");
+tabelleZelle1_1.appendChild(tabelleZelleTxt1_1);
+tabelleRow1.appendChild(tabelleZelle1_1);
+
+var tabelleZelle1_2 = document.createElement("td");
+var tabelleZelleTxt1_2 = document.createTextNode("Figur");
+tabelleZelle1_2.appendChild(tabelleZelleTxt1_2);
+tabelleRow1.appendChild(tabelleZelle1_2);
+
+// 1.Zeile ; 2. Feld 
+var tabelleZelle1_2 = document.createElement("td");
+var tabelleZelleTxt1_2 = document.createTextNode("Seitenlänge/Radius");
+tabelleZelle1_2.appendChild(tabelleZelleTxt1_2);
+tabelleRow1.appendChild(tabelleZelle1_2);
+// 1. Zeile ; 3.Feld 
+var tabelleZelle1_4 = document.createElement("td");
+var tabelleZelleTxt1_4 = document.createTextNode("Volumen");
+tabelleZelle1_4.appendChild(tabelleZelleTxt1_4);
+tabelleRow2.appendChild(tabelleZelle1_4);
+
+var tabelleZelle1_5 = document.createElement("td");
+var tabelleZelleTxt1_5 = document.createTextNode("Volumen");
+tabelleZelle1_5.appendChild(tabelleZelleTxt1_5);
+tabelleRow2.appendChild(tabelleZelle1_5);
+
+var tabelleZelle1_6 = document.createElement("td");
+var tabelleZelleTxt1_6 = document.createTextNode("Volumen");
+tabelleZelle1_6.appendChild(tabelleZelleTxt1_6);
+tabelleRow2.appendChild(tabelleZelle1_6);
+
+    </script>
+</body>
+
+</html>
