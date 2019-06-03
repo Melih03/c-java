@@ -1,0 +1,50 @@
+        private void bSave_Click(object sender, RoutedEventArgs e)
+        {
+            
+                
+                Microsoft.Win32.OpenFileDialog dialog2 = new Microsoft.Win32.OpenFileDialog();
+                dialog2.FileName = "";
+                dialog2.DefaultExt = ".txt";
+                dialog2.Filter = "Text Document (.txt)|*.txt";
+
+                Nullable<bool> result = dialog2.ShowDialog();
+                if (result ==true)
+                {
+
+                    {
+                        string path = dialog2.FileName;
+                        StreamWriter streamW = new StreamWriter(path);
+                        foreach (Projekt p in lbxProjekte.Items)
+                        {
+                            streamW.WriteLine(p); 
+                        }
+                        streamW.Close();
+
+                    }
+
+                }
+                
+
+            }
+
+        private void bLoad_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "";
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text Document (.txt)|*.txt";
+
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+            }
+            using (StreamReader sr = new StreamReader(dlg.FileName))
+            {
+                while(sr.Peek() >=0)
+                {
+                    lbxProjekte.Items.Add(sr.ReadLine());
+                }
+            }
+        }
